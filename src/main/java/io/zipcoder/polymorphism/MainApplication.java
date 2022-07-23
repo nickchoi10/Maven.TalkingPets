@@ -1,36 +1,61 @@
 package io.zipcoder.polymorphism;
 
+import jdk.jfr.internal.tool.Main;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class MainApplication {
+public class MainApplication extends Pets {
+    private static ArrayList<Pets> petsList = new ArrayList<Pets>();
 
+    public MainApplication(){
+        super();
+    }
     public static void main(String[] args) {
-        System.out.println("How many pets do you have?");
-        Scanner scan = new Scanner(System.in);
-        Integer number = Integer.valueOf(scan.nextLine());
+        int numberOfPets = getIntInput("How many pets do you have?");
 
-        String[] petType = new String[number];
-        String[] name = new String[number];
+        for (int i = 0; i < numberOfPets; i++) {
+            String typePet = getStringInput("What kind of pet?");
+            String namePet = getStringInput("What is its name?");
+            System.out.println(typePet + " " + namePet);
 
-
-        for (int i = 0; i < number; i++) {
-            System.out.println("What kind of pet?");
-            petType[i] = scan.nextLine();}
-            for (int j =0; j <number; j++){
-
-            System.out.println("What is their name?");
-            name[j] = scan.nextLine();
+            if (typePet.equalsIgnoreCase("cat")) {
+                petsList.add((new Cats(namePet)));
+            } else if (typePet.equalsIgnoreCase("dog")) {
+                petsList.add(new Dogs(namePet));
+            } else if (typePet.equalsIgnoreCase("rabbit")) {
+                petsList.add(new Rabbits(namePet));
+            }
         }
-
-
-        System.out.println("You have " + number + " pets");
-        System.out.println("You have a " + Arrays.toString(petType));
-        System.out.println("There names are " + Arrays.toString(name));
-        System.out.println(name[number-1] + " is my favorite pet!!!");
+        printEndStatus();
     }
 
+    public static int getIntInput(String prompt) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println(prompt);
+        int numberInput = scan.nextInt();
+        return numberInput;
+    }
 
+    public static String getStringInput(String prompt) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println(prompt);
+        String pet = scan.nextLine();
+        return pet;
+
+    }
+
+    public static void printEndStatus() {
+        for (Pets pet : petsList) {
+            System.out.println(pet.getName()+ " says " +pet.speak());
+        }
+    }
 }
+
+
+
+
+
+

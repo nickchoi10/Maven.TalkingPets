@@ -5,6 +5,9 @@ public class Dogs extends Pets {
         this.name =name;
     }
 
+    public Dogs(){
+        super();
+    }
     @Override
     public String speak() {
         return "grrrrr";

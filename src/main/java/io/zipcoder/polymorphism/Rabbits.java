@@ -5,6 +5,10 @@ public class Rabbits extends Pets {
         this.name = name;
     }
 
+    public Rabbits(){
+        super();
+    }
+
     @Override
     public String speak(){
         return "ribbit";
